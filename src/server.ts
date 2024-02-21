@@ -7,6 +7,7 @@ import express, { Request, Response, NextFunction } from "express";
 import { router } from "./modules/routes";
 import swaggerUi from "swagger-ui-express";
 import swaggerFile from "../swagger.json";
+import "./config/database/database";
 
 dotenv.config();
 
