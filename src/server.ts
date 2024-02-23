@@ -1,17 +1,24 @@
 import { ValidationError } from "class-validator";
 import { AppError } from "./utils/errors/AppError";
+import "reflect-metadata";
 import "express-async-errors";
 import cors from "cors";
 import dotenv from "dotenv";
 import express, { Request, Response, NextFunction } from "express";
-import { router } from "./modules/routes";
+import { router } from "./routes";
 import swaggerUi from "swagger-ui-express";
 import swaggerFile from "../swagger.json";
 import "./config/database/database";
+import "./utils/container/index";
 
 dotenv.config();
 
 const app = express();
+
+// API INIT
+app.get("/", (request: Request, response: Response) => {
+    return response.json({ status: "Connected!" });
+});
 
 // APP CONFIG
 app.use(express.json({ limit: "1024mb" }));
@@ -36,11 +43,6 @@ app.use(
         }
     }
 )
-
-// API INIT
-app.get("/", (request: Request, response: Response) => {
-    return response.json({ status: "Connected!" });
-});
 
 // APP PORT LISTENING
 const PORT = process.env.SERVER_PORT || 8080;

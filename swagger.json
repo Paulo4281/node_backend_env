@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "NodeJS Backend Enviroment",
-    "description": "Desc",
+    "description": "Description",
     "version": "1.0.0"
   },
   "basePath": "/",
@@ -10,5 +10,222 @@
     "http",
     "https"
   ],
-  "paths": {}
+  "paths": {
+    "/user/": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IUserDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/IUserResponseDTO"
+            },
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/IUserResponseListDTO"
+            },
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/IUserResponseDTO"
+            },
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/IUserUpdateDTO"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "IUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "mail": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "birth": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "IUserDTO": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "mail": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "birth": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "IUserResponseDTO": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "mail": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "birth": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "IUserUpdateDTO": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "mail": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "birth": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "IUserResponseListDTO": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/IUserResponseDTO"
+      }
+    }
+  }
 }
