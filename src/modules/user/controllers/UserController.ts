@@ -4,6 +4,12 @@ import { UserService } from "../services/UserService";
 
 class UserController {
 
+    async auth(request: Request, response: Response): Promise<Response> {
+        const service = container.resolve(UserService);
+        const data = await service.auth(request.body);
+        return response.json(data);
+    }
+
     async save(request: Request, response: Response): Promise<Response> {
         const service = container.resolve(UserService);
         const data = await service.save(request.body);

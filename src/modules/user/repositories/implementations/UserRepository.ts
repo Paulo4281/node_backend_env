@@ -24,6 +24,10 @@ class UserRepository implements IUserRepository {
         return this.repository.findOneBy({ id });
     }
 
+    async findByMail(mail: string): Promise<IUserResponseDTO | null> {
+        return this.repository.findOneBy({ mail })
+    }
+
     async update(id: string, userDTO: IUserUpdateDTO): Promise<void> {
         await this.repository.update({ id }, userDTO);
     }

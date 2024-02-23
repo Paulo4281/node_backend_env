@@ -1,10 +1,14 @@
 import { inject, injectable } from "tsyringe";
 import { validate as uuidValidate } from "uuid";
 import { IUserRepository } from "../repositories/interfaces/IUserRepository";
-import { IUserDTO, IUserResponseDTO, IUserUpdateDTO } from "../dtos/UserDTO";
+import { IUserAuthDTO, IUserDTO, IUserResponseDTO, IUserUpdateDTO, IUserAuthResponseDTO } from "../dtos/UserDTO";
 import { User } from "../entities/User";
-import { hashSync, genSaltSync } from "bcrypt";
+import { hashSync, genSaltSync, compareSync } from "bcrypt";
 import { AppError } from "../../../utils/errors/AppError";
+import { sign } from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 @injectable()
 class UserService {
@@ -12,6 +16,18 @@ class UserService {
         @inject("UserRepository")
         private userRepository: IUserRepository
     ) {}
+
+    async auth(userAuthDTO: IUserAuthDTO): Promise<IUserAuthResponseDTO> {
+        const user = await this.findByMail(userAuthDTO.mail);
+        if (compareSync(userAuthDTO.password, user.password)) {
+            const token = sign({}, process.env.TOKEN_SECRET, {
+                subject: user.id,
+                expiresIn: process.env.TOKEN_EXPIRES
+            });
+
+            return token;
+        }
+    }
 
     async save(userDTO: IUserDTO): Promise<IUserResponseDTO> {
         const user = new User();
@@ -71,6 +87,14 @@ class UserService {
     async delete(id: string): Promise<void> {
         await this.findById(id);
         await this.userRepository.delete(id);
+    }
+
+    private async findByMail(mail: string): Promise<IUserResponseDTO | null> {
+        const user = await this.userRepository.findByMail(mail);
+        if (!user) {
+            throw new AppError("E-mail não encontrado.", 404);
+        }
+        return user;
     }
 
 };

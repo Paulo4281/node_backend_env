@@ -9,6 +9,24 @@ const userController = new UserController();
 const userValidator = new UserValidator();
 
 userRoutes.post(
+    "/auth",
+    userValidator.authValidator,
+    apiValidationHandler,
+    userController.auth
+    /*
+        #swagger.tags = ["User"]
+        #swagger.parameters["body"] = {
+            in: "body",
+            required: true,
+            schema: { $ref: "#/definitions/IUserAuthDTO" }
+        }
+        #swagger.responses[200] = {
+            schema: { $ref: "#/definitions/IUserAuthResponseDTO" }
+        }
+    */
+)
+
+userRoutes.post(
     "/",
     userValidator.saveValidator,
     apiValidationHandler,

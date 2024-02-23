@@ -17,6 +17,7 @@ function authenticate(request: Request, response: Response, next: NextFunction) 
 
     try {
         verify(token, process.env.TOKEN_SECRET);
+        next();
     } catch (error) {
         throw new AppError("Token inválido", 401);
     }

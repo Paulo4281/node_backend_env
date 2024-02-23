@@ -3,12 +3,24 @@ import { apiValidationErros } from "../../../utils/api/ApiValidationErrors";
 
 class UserValidator {
 
+    public authValidator: ValidationChain[];
     public saveValidator: ValidationChain[];
     public updateValidator: ValidationChain[];
 
     constructor() {
+        this.authValidator = this.authValidatorBuilder()
         this.saveValidator = this.saveValidatorBuilder()
         this.updateValidator = this.updateValidatorBuilder()
+    }
+
+    private authValidatorBuilder(): ValidationChain[] {
+        return [
+            body("mail", apiValidationErros.isString).isString(),
+            body("mail", apiValidationErros.notEmpty).notEmpty(),
+            body("mail", apiValidationErros.isEmail).isEmail(),
+            body("password", apiValidationErros.isString).isString(),
+            body("password", apiValidationErros.notEmpty).notEmpty(),
+        ]
     }
 
     private saveValidatorBuilder(): ValidationChain[] {

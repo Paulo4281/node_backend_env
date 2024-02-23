@@ -27,7 +27,10 @@ const doc = {
         IUserResponseListDTO: {
             type: "array",
             items: { $ref: "#/definitions/IUserResponseDTO" }
-        }
+        },
+    // User Auth
+        IUserAuthDTO: UserDTO?.getSchemaForSymbol("IUserAuthDTO"),
+        IUserAuthResponseDTO: UserDTO?.getSchemaForSymbol("IUserAuthResponseDTO")
     },
 };
 
