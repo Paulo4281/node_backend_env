@@ -1,12 +1,16 @@
 import { Router } from "express";
 import { UserController } from "../modules/user/controllers/UserController";
+import { UserValidator } from "../validators/modules/user/UserValidator";
+import { apiValidationHandler } from "../utils/api/ApiValidationHandler";
 
 const userRoutes = Router();
 const userController = new UserController();
+const userValidator = new UserValidator();
 
 userRoutes.post(
     "/",
-    // auth
+    userValidator.saveValidator,
+    apiValidationHandler,
     userController.save
     /*
         #swagger.tags = ["User"]
@@ -23,7 +27,6 @@ userRoutes.post(
 
 userRoutes.get(
     "/",
-    // auth,
     userController.find
     /*
         #swagger.tags = ["User"]
@@ -35,7 +38,6 @@ userRoutes.get(
 
 userRoutes.get(
     "/:id",
-    // auth,
     userController.findById
     /*
         #swagger.tags = ["User"]
@@ -47,7 +49,8 @@ userRoutes.get(
 
 userRoutes.put(
     "/:id",
-    // auth,
+    userValidator.updateValidator,
+    apiValidationHandler,
     userController.update
     /*
         #swagger.tags = ["User"]
