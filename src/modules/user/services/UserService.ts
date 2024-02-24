@@ -27,6 +27,7 @@ class UserService {
 
             return token;
         }
+        throw new AppError("E-mail ou senha incorretos.", 401);
     }
 
     async save(userDTO: IUserDTO): Promise<IUserResponseDTO> {
