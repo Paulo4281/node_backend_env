@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { AppDataSource } from "../../../../config/database/database";
+import { AppDataSource, AppDataSourceTest } from "../../../../config/database/database";
 import { User } from "../../entities/User";
 import { IUserRepository } from "../interfaces/IUserRepository";
 import { IUserDTO, IUserResponseDTO, IUserUpdateDTO } from "../../dtos/UserDTO";
@@ -8,8 +8,12 @@ class UserRepository implements IUserRepository {
 
     private repository: Repository<User>;
 
-    constructor() {
-        this.repository = AppDataSource.getRepository(User);
+    constructor(test?: boolean) {
+        if (test) {
+            this.repository = AppDataSourceTest.getRepository(User);
+        } else {
+            this.repository = AppDataSource.getRepository(User);
+        }
     }
 
     async save(userDTO: IUserDTO): Promise<IUserResponseDTO> {

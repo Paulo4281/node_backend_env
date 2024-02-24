@@ -4,6 +4,8 @@ interface IUser extends Omit<User, ""> {};
 
 interface IUserDTO extends Omit<IUser, "id" | "createdAt" | "updatedAt"> {};
 
+interface IUserDTOTest extends Omit<IUser, "updatedAt"> {};
+
 interface IUserResponseDTO extends IUser {};
 
 interface IUserUpdateDTO extends IUserDTO {};
@@ -19,5 +21,6 @@ export {
     IUserResponseDTO,
     IUserUpdateDTO,
     IUserAuthDTO,
-    IUserAuthResponseDTO
+    IUserAuthResponseDTO,
+    IUserDTOTest
 };
