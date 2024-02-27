@@ -1,0 +1,5 @@
+class HouseService {
+
+};
+
+export { HouseService };

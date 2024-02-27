@@ -1,4 +1,4 @@
-import { body, ValidationChain, param } from "express-validator";
+import { body, ValidationChain } from "express-validator";
 import { apiValidationErros } from "../../../utils/api/ApiValidationErrors";
 
 class UserValidator {
@@ -8,9 +8,9 @@ class UserValidator {
     public updateValidator: ValidationChain[];
 
     constructor() {
-        this.authValidator = this.authValidatorBuilder()
-        this.saveValidator = this.saveValidatorBuilder()
-        this.updateValidator = this.updateValidatorBuilder()
+        this.authValidator = this.authValidatorBuilder();
+        this.saveValidator = this.saveValidatorBuilder();
+        this.updateValidator = this.updateValidatorBuilder();
     }
 
     private authValidatorBuilder(): ValidationChain[] {
