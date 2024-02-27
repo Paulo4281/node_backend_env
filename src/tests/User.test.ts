@@ -7,7 +7,7 @@ let repository: UserRepository;
 
 beforeAll(async () => {
     await AppDataSourceTest.initialize();
-    repository = new UserRepository(true);
+    repository = new UserRepository();
 });
 
 describe("User Module", () => {

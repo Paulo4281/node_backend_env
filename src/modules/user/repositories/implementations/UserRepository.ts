@@ -8,11 +8,11 @@ class UserRepository implements IUserRepository {
 
     private repository: Repository<User>;
 
-    constructor(test?: boolean) {
-        if (test) {
-            this.repository = AppDataSourceTest.getRepository(User);
-        } else {
+    constructor() {
+        if (Boolean(process.env.TEST)) {
             this.repository = AppDataSource.getRepository(User);
+        } else {
+            this.repository = AppDataSourceTest.getRepository(User);
         }
     }
 

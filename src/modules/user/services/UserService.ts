@@ -25,7 +25,7 @@ class UserService {
                 expiresIn: process.env.TOKEN_EXPIRES
             });
 
-            return token;
+            return {"token": token};
         }
         throw new AppError("E-mail ou senha incorretos.", 401);
     }
