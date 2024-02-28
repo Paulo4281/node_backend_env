@@ -11,6 +11,12 @@ const UserDTO = TJS.buildGenerator(
     )
 );
 
+const HouseDTO = TJS.buildGenerator(
+    TJS.getProgramFromFiles(
+        [resolve("./src/modules/house/dtos/HouseDTO.ts")]
+    )
+);
+
 const doc = {
     info: {
         title: "NodeJS Backend Enviroment",
@@ -30,7 +36,16 @@ const doc = {
         },
     // User Auth
         IUserAuthDTO: UserDTO?.getSchemaForSymbol("IUserAuthDTO"),
-        IUserAuthResponseDTO: UserDTO?.getSchemaForSymbol("IUserAuthResponseDTO")
+        IUserAuthResponseDTO: UserDTO?.getSchemaForSymbol("IUserAuthResponseDTO"),
+    // House
+        IHouse: HouseDTO?.getSchemaForSymbol("IHouse"),
+        IHouseDTO: HouseDTO?.getSchemaForSymbol("IHouseDTO"),
+        IHouseResponseDTO: HouseDTO?.getSchemaForSymbol("IHouseResponseDTO"),
+        IHouseUpdateDTO: HouseDTO?.getSchemaForSymbol("IHouseUpdateDTO"),
+        IHouseReponseListDTO: {
+            type: "array",
+            items: { $ref: "#/definitions/IHouseResponseDTO" }
+        }
     },
 };
 

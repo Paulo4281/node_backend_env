@@ -9,6 +9,20 @@ const houseValidator = new HouseValidator();
 
 houseRoutes.post(
     "/",
+    houseValidator.saveValidator,
+    apiValidationHandler,
+    houseController.save
+    /*
+        #swagger.tags = ["House"]
+        #swagger.parameters["body"] = {
+            in: "body",
+            required: true,
+            schema: { $ref: "#/definitions/IHouseDTO" }
+        }
+        #swagger.responses[200] = {
+            schema: { $ref: "#/definitions/IHouseResponseDTO" }
+        }
+    */
 )
 
 export { houseRoutes };

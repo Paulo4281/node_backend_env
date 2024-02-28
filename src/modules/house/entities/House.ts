@@ -13,7 +13,7 @@ class House {
     type?: string
 
     @Column({ name: "area_imovel" })
-    area?: number
+    area?: string
 
     @Column({ name: "quartos_imovel" })
     rooms?: number
@@ -40,7 +40,7 @@ class House {
     rentAvailable?: boolean
 
     @Column({ name: "atualizado_em" })
-    updateAt?: Date
+    updatedAt?: Date
 
     @Column({ name: "criado_em" })
     createdAt?: Date
